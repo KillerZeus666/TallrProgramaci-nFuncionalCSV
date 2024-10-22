@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-public class Main
+public class Municipio
 {
     public static void main(String[] args) throws IOException
     {
