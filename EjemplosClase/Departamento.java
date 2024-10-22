@@ -1,3 +1,4 @@
+package EjemplosClase;
 //Ejemplo1 contar y traer los departamentos
 import java.util.List;
 import java.nio.file.Files;
