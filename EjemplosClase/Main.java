@@ -20,7 +20,7 @@ public class Main
         .map(l -> l.split(";"))
         .collect(Collectors.groupingBy(
                         columns -> columns[0], // Agrupar por numero decolumna (cod_deptp)
-                        Collectors.mapping(columns -> columns[4], Collectors.toSet()) // Obtener valores únicos)
+                        Collectors.mapping(columns -> columns[3], Collectors.toSet()) // Obtener valores únicos)
                 ));
 
          System.out.println("Los departamentos de Colombia son: " + mapaDeptos.size());
