@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-public class Main
+public class departamentos
 {
     
    
