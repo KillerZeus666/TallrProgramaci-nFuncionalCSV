@@ -1,36 +1,46 @@
 package EjemplosClase;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-//Filtrar por un nombre de departamento
-public class Main
-{
 
-    public static void main(String[] args) throws IOException
-    {
-        List<String> deptos =   Files.readAllLines(Paths.get("Divipola.csv"));
+public class Main {
 
+    public static void main(String[] args) {
+        try {
+            // Leer el archivo Divipola.csv
+            List<String> deptos = Files.readAllLines(Paths.get("Divipola.csv"));
 
-        Map<String, Set<String>> mapaDeptos = deptos.stream()
-        .skip(1)
-        .map(l -> l.split(";"))
-        .collect(Collectors.groupingBy(
-                        columns -> columns[0], // Agrupar por numero decolumna (cod_deptp)
-                        Collectors.mapping(columns -> columns[3], Collectors.toSet()) // Obtener valores únicos)
-                ));
+            // Contar y listar departamentos
+            List<String> nomDeptos = deptos.stream()
+                    .skip(1) // Saltar la cabecera
+                    .map(l -> l.split(";")[3]) // Obtener el nombre del departamento
+                    .distinct() // Obtener solo los departamentos únicos
+                    .collect(Collectors.toList());
 
-         System.out.println("Los departamentos de Colombia son: " + mapaDeptos.size());
+            System.out.println("Los departamentos de Colombia son: " + nomDeptos.size());
+            nomDeptos.forEach(System.out::println);
 
-         mapaDeptos.entrySet().stream()
-               .filter(entry -> entry.getKey().equals("QUINDÍO")) // Filtrar por clave
-               .forEach(entry -> {
-                    System.out.println("El Departamento de: " + entry.getKey() + " tiene " + entry.getValue().size() + " municipios:");
-                    entry.getValue().forEach(element -> System.out.println("  " + element));
-                });
+            // Agrupar municipios por departamento
+            Map<String, Set<String>> mapaDeptos = deptos.stream()
+                    .skip(1) // Saltar la cabecera
+                    .map(l -> l.split(";"))
+                    .collect(Collectors.groupingBy(
+                            columns -> columns[3], // Columna de departamento
+                            Collectors.mapping(columns -> columns[4], Collectors.toSet()) // Columna de municipio
+                    ));
 
+            System.out.println("\nLos " + mapaDeptos.size() + " departamentos de Colombia ordenados por cantidad de municipios:");
+            mapaDeptos.entrySet().stream()
+                    .sorted((entry1, entry2) -> Integer.compare(entry2.getValue().size(), entry1.getValue().size()))
+                    .forEach(entry -> System.out.println("Departamento: " + entry.getKey() + " - Municipios: " + entry.getValue().size()));
+            
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
     }
 }
