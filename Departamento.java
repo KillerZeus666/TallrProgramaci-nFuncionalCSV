@@ -1,8 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Departamento {
     private String nombreDepartamento;
     private double superficie;
     private int poblacionUrbana;
     private int poblacionRural;
+
+    private List<Municipio> municipios;
 
     public Departamento(String nombreDepartamento, double superficie, int poblacionUrbana, int poblacionRural) {
         this.nombreDepartamento = nombreDepartamento;
