@@ -7,8 +7,6 @@ public class Departamento {
     private int poblacionUrbana;
     private int poblacionRural;
 
-    private List<Municipio> municipios;
-
     public Departamento(String nombreDepartamento, double superficie, int poblacionUrbana, int poblacionRural) {
         this.nombreDepartamento = nombreDepartamento;
         this.superficie = superficie;
